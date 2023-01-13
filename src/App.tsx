@@ -1,10 +1,23 @@
-import { TextField } from '@mui/material';
 import React from 'react';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import CustomDateInput from "./components/CustomDateInput";
+
+const ariaLabel = { 'aria-label': 'description' };
 
 function App() {
   return (
     <div className="App">
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+        <Box
+            component="form"
+            sx={{
+                '& > :not(style)': { m: 1 },
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            <CustomDateInput/>
+        </Box>
     </div>
   );
 }
