@@ -18,7 +18,7 @@ function CustomDateInput() {
     return (
         <div>
             <Paper
-                component="form"
+                component="div"
                 sx={{ display: 'flex', alignItems: 'center', width: "450px" }}
             >
                 <div>
