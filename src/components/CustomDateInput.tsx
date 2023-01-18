@@ -81,7 +81,7 @@ function CustomDateInput() {
 
     const handleFromToInputEnterKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.nativeEvent.isComposing || e.key !== 'Enter') return;
-        setState((prev) => ({...prev, showCalendar: false}));
+        setState((prev) => ({...prev, showCalendar: false, inputFocus: null}));
     }
 
     const handleOnClickedInputBase = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -123,7 +123,7 @@ function CustomDateInput() {
                     ...prev,
                     dateRangeString: {
                         ...prev.dateRangeString,
-                        to: isAfter(selectedDay,getMaxEndDay(state.dateRange.from!)) ? format(getMaxEndDay(prev.dateRange.from!),'yyyyMMdd') : format(getMaxEndDay(prev.dateRange.from!),'yyyyMMdd')
+                        to: isAfter(selectedDay,getMaxEndDay(state.dateRange.from!)) ? format(getMaxEndDay(prev.dateRange.from!),'yyyyMMdd') : format(selectedDay,'yyyyMMdd')
                     },
                     dateRange: {
                         ...prev.dateRange,
@@ -155,13 +155,12 @@ function CustomDateInput() {
                     )
                     return;
                 } else {
-                    console.log("ind")
                     setState(
                         (prev) => (
                             {
                                 ...prev,
-                                dateRange: {from: prev.dateRange.from, end: isAfter(targetDate, getMaxEndDay(prev.dateRange.from!)) ? getMaxEndDay(prev.dateRange.from!): targetDate},
-                                dateRangeString: {from: prev.dateRangeString.from, to: isAfter(targetDate, getMaxEndDay(prev.dateRange.from!)) ? format(getMaxEndDay(prev.dateRange.to!),'yyyyMMdd') : format(getMaxEndDay(targetDate),'yyyyMMdd')},
+                                dateRange: {...prev.dateRange, end: isAfter(targetDate, getMaxEndDay(state.dateRange.from ?? new Date())) ? getMaxEndDay(state.dateRange.from ?? new Date()): targetDate},
+                                dateRangeString: {...prev.dateRangeString, to: isAfter(targetDate, getMaxEndDay(prev.dateRange.from ?? new Date())) ? format(getMaxEndDay(prev.dateRange.from ?? new Date()),'yyyyMMdd') : format(getMaxEndDay(targetDate),'yyyyMMdd')},
                                 inputFocus: "to",
                             }
                         )
